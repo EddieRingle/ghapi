@@ -177,4 +177,74 @@ public class Repository extends APIBase {
 			throw new InvalidParameterException("Login details cannot be empty");
 		}
 	}
+
+	/**
+	 * Fetches list of collaborators for a repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @return a Response object containing status code and list of collaborators
+	 */
+	public static Response collaborators(String owner, String repositoryName)
+	{
+		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+						+ encode(owner) + "/"
+						+ encode(repositoryName) + "/collaborators");
+	}
+
+	/**
+	 * Fetches list of forks for a repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @return a Response object containing status code and list of forks
+	 */
+	public static Response network(String owner, String repositoryName)
+	{
+		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+						+ encode(owner) + "/"
+						+ encode(repositoryName) + "/network");
+	}
+
+	/**
+	 * Fetches a list of languages used in a repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @return a Response object containing status code and list of languages
+	 */
+	public static Response languages(String owner, String repositoryName)
+	{
+		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+				+ encode(owner) + "/"
+				+ encode(repositoryName) + "/languages");
+	}
+
+	/**
+	 * Fetches a list of tags on a repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @return a Response object containing status code and list of tags
+	 */
+	public static Response tags(String owner, String repositoryName)
+	{
+		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+				+ encode(owner) + "/"
+				+ encode(repositoryName) + "/tags");
+	}
+
+	/**
+	 * Fetches a list of branches for a repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @return a Response object containing status code and list of branches
+	 */
+	public static Response branches(String owner, String repositoryName)
+	{
+		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+				+ encode(owner) + "/"
+				+ encode(repositoryName) + "/branches");
+	}
 }
