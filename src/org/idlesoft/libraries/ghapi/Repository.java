@@ -90,4 +90,17 @@ public class Repository extends APIBase {
 			throw new InvalidParameterException("Login details cannot be empty");
 		}
 	}
+
+	public static Response fork(String owner, String repositoryName, String user, String token)
+	{
+		if (!user.equals("") && !token.equals("")) {
+			return HTTPGet("http://github.com/api/v2/json/repos/fork/"
+							+ encode(owner) + "/"
+							+ encode(repositoryName) + "?login="
+							+ encode(user) + "&token="
+							+ encode(token));
+		} else {
+			throw new InvalidParameterException("Login details cannot be empty");
+		}
+	}
 }
