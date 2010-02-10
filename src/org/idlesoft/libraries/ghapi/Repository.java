@@ -12,11 +12,26 @@ package org.idlesoft.libraries.ghapi;
 import java.security.InvalidParameterException;
 
 public class Repository extends APIBase {
+
+	/**
+	 * Searches GitHub for repositories matching supplied query
+	 * 
+	 * @param query
+	 * @return a Response object containing status code and search results
+	 */
 	public static Response search(String query)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/search/" + encode(query));
 	}
 
+	/**
+	 * Searches GitHub for repositories matching supplied query, includes private repositories
+	 * 
+	 * @param query
+	 * @param user
+	 * @param token
+	 * @return a Response object containing status code and search results
+	 */
 	public static Response search(String query, String user, String token)
 	{
 		if (!user.equals("") && !token.equals("")) {
@@ -29,12 +44,29 @@ public class Repository extends APIBase {
 		}
 	}
 
+	/**
+	 * Fetches info for a given repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @return a Response object containing status code and repository information
+	 */
 	public static Response info(String owner, String repositoryName)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName));
 	}
+
+	/**
+	 * Fetches info for a given repository, includes private repositories
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing status code and repository information
+	 */
 	public static Response info(String owner, String repositoryName, String user, String token)
 	{
 		if (!user.equals("") && !token.equals("")) {
@@ -48,11 +80,26 @@ public class Repository extends APIBase {
 		}
 	}
 
+	/**
+	 * Lists repositories of a given user
+	 * 
+	 * @param target
+	 * @return a Response object containing status code and list of repositories
+	 */
 	public static Response list(String target)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 						+ encode(target));
 	}
+
+	/**
+	 * Lists repositories of a given user, includes private repositories
+	 * 
+	 * @param target
+	 * @param user
+	 * @param token
+	 * @return a Response object containing status code and list of repositories
+	 */
 	public static Response list(String target, String user, String token)
 	{
 		if (!user.equals("") && !token.equals("")) {
@@ -65,6 +112,15 @@ public class Repository extends APIBase {
 		}
 	}
 
+	/**
+	 * Watches a given repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing status code and updated repository information
+	 */
 	public static Response watch(String owner, String repositoryName, String user, String token)
 	{
 		if (!user.equals("") && !token.equals("")) {
@@ -78,6 +134,15 @@ public class Repository extends APIBase {
 		}
 	}
 
+	/**
+	 * Unwatches a given repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing status code and updated repository information
+	 */
 	public static Response unwatch(String owner, String repositoryName, String user, String token)
 	{
 		if (!user.equals("") && !token.equals("")) {
@@ -91,6 +156,15 @@ public class Repository extends APIBase {
 		}
 	}
 
+	/**
+	 * Forks a given repository
+	 * 
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing status code and information about the new fork
+	 */
 	public static Response fork(String owner, String repositoryName, String user, String token)
 	{
 		if (!user.equals("") && !token.equals("")) {
