@@ -10,10 +10,6 @@
 package org.idlesoft.libraries.ghapi;
 
 public class GitHubAPI {
-	public Repository Repository;
-
-	public GitHubAPI(String user, String token)
-	{
-		Repository = new Repository();
-	}
+	public Repository Repository = new Repository();
+	public User User = new User();
 }
