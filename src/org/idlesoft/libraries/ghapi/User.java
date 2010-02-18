@@ -132,8 +132,8 @@ public class User extends APIBase {
 	 */
 	public static Response activity(String username)
 	{
-		return HTTPGet("http://github.com/"
-						+ encode(username) + ".json");
+		return HTTPGet("http://query.yahooapis.com/v1/public/yql?q=" + encode("select * from atom where url='http://github.com/"
+						+ username + ".atom'") + "&format=json&diagnostics=false");
 	}
 
 	/**
@@ -146,9 +146,8 @@ public class User extends APIBase {
 	public static Response activity(String username, String token)
 	{
 		if (!token.equals("")) {
-			return HTTPGet("http://github.com/"
-							+ encode(username) + ".private.json?token="
-							+ encode(token));
+			return HTTPGet("http://query.yahooapis.com/v1/public/yql?q=" + encode("select * from atom where url='http://github.com/"
+					+ username + ".private.atom?token=" + token + "'") + "&format=json&diagnostics=false");
 		} else {
 			throw new InvalidParameterException("Login details cannot be empty");
 		}
