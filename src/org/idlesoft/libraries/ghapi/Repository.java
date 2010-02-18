@@ -193,6 +193,28 @@ public class Repository extends APIBase {
 	}
 
 	/**
+	 * Fetches a list of collaborators for a repository, includes private repos
+	 *
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing the list of collaborators
+	 */
+	public static Response collaborators(String owner, String repositoryName, String user, String token)
+	{
+		if (!user.equals("") && !token.equals("")) {
+			return HTTPGet("http://github.com/api/v2/json/repos/show/"
+							+ encode(owner) + "/"
+							+ encode(repositoryName) + "/collaborators?login="
+							+ encode(user) + "&token="
+							+ encode(token));
+		} else {
+			throw new InvalidParameterException("Login details cannot be empty");
+		}
+	}
+
+	/**
 	 * Fetches list of forks for a repository
 	 * 
 	 * @param owner
@@ -204,6 +226,28 @@ public class Repository extends APIBase {
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName) + "/network");
+	}
+
+	/**
+	 * Fetches a list of forks for a repository, includes private repos
+	 *
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing the list of forks
+	 */
+	public static Response network(String owner, String repositoryName, String user, String token)
+	{
+		if (!user.equals("") && !token.equals("")) {
+			return HTTPGet("http://github.com/api/v2/json/repos/show/"
+							+ encode(owner) + "/"
+							+ encode(repositoryName) + "/network?login="
+							+ encode(user) + "&token="
+							+ encode(token));
+		} else {
+			throw new InvalidParameterException("Login details cannot be empty");
+		}
 	}
 
 	/**
@@ -221,6 +265,28 @@ public class Repository extends APIBase {
 	}
 
 	/**
+	 * Fetches a list of languages used in a repository, includes private repos
+	 *
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing the list of languages
+	 */
+	public static Response languages(String owner, String repositoryName, String user, String token)
+	{
+		if (!user.equals("") && !token.equals("")) {
+			return HTTPGet("http://github.com/api/v2/json/repos/show/"
+							+ encode(owner) + "/"
+							+ encode(repositoryName) + "/languages?login="
+							+ encode(user) + "&token="
+							+ encode(token));
+		} else {
+			throw new InvalidParameterException("Login details cannot be empty");
+		}
+	}
+
+	/**
 	 * Fetches a list of tags on a repository
 	 * 
 	 * @param owner
@@ -235,6 +301,28 @@ public class Repository extends APIBase {
 	}
 
 	/**
+	 * Fetches a list of tags on a repository, includes private repos
+	 *
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing the list of tags
+	 */
+	public static Response tags(String owner, String repositoryName, String user, String token)
+	{
+		if (!user.equals("") && !token.equals("")) {
+			return HTTPGet("http://github.com/api/v2/json/repos/show/"
+							+ encode(owner) + "/"
+							+ encode(repositoryName) + "/tags?login="
+							+ encode(user) + "&token="
+							+ encode(token));
+		} else {
+			throw new InvalidParameterException("Login details cannot be empty");
+		}
+	}
+
+	/**
 	 * Fetches a list of branches for a repository
 	 * 
 	 * @param owner
@@ -246,5 +334,27 @@ public class Repository extends APIBase {
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 				+ encode(owner) + "/"
 				+ encode(repositoryName) + "/branches");
+	}
+
+	/**
+	 * Fetches a list of branches for a repository, includes private repos
+	 *
+	 * @param owner
+	 * @param repositoryName
+	 * @param user
+	 * @param token
+	 * @return a Response object containing list of branches
+	 */
+	public static Response branches(String owner, String repositoryName, String user, String token)
+	{
+		if (!user.equals("") && !token.equals("")) {
+			return HTTPGet("http://github.com/api/v2/json/repos/show/"
+							+ encode(owner) + "/"
+							+ encode(repositoryName) + "/branches?login="
+							+ encode(user) + "&token="
+							+ encode(token));
+		} else {
+			throw new InvalidParameterException("Login details cannot be empty");
+		}
 	}
 }
