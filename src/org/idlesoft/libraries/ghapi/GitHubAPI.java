@@ -12,4 +12,6 @@ package org.idlesoft.libraries.ghapi;
 public class GitHubAPI {
 	public Repository Repository = new Repository();
 	public User User = new User();
+	public Commits Commits = new Commits();
+	public Issues Issues = new Issues();
 }
