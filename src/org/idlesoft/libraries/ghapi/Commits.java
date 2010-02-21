@@ -90,7 +90,7 @@ public class Commits extends APIBase {
 	 */
 	public static Response commit(String owner, String repositoryName, String sha)
 	{
-		return HTTPGet("http://github.com/api/v2/json/commits/list/"
+		return HTTPGet("http://github.com/api/v2/json/commits/show/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(sha));
 	}
 	/**
