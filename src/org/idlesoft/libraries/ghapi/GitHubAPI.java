@@ -14,4 +14,5 @@ public class GitHubAPI {
 	public User User = new User();
 	public Commits Commits = new Commits();
 	public Issues Issues = new Issues();
+	public Object Object = new Object();
 }
