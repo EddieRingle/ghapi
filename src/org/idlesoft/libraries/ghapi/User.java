@@ -125,6 +125,24 @@ public class User extends APIBase {
 	}
 
 	/**
+	 * Fetches a list of repositories a user is watching, will include a user's private repos
+	 *
+	 * @param username
+	 * @param user
+	 * @param token
+	 * @return a Response object containing a list of watched repositories
+	 */
+	public static Response watching(String username, String user, String token)
+	{
+		if (!user.equals("") && !token.equals("")) {
+			return HTTPGet("http://github.com/api/v2/json/repos/watched/" + encode(username)
+							+ "?login=" + encode(user) + "&token=" + encode(token));
+		} else {
+			throw new InvalidParameterException("Login details cannot be empty");
+		}
+	}
+
+	/**
 	 * Fetches a user's public activity feed
 	 * 
 	 * @param username
