@@ -140,7 +140,7 @@ public class Issues extends APIBase {
 	{
 		if (!user.equals("") && !token.equals("")) {
 			return HTTPPost("http://github.com/api/v2/json/issues/reopen/"
-							+ encode(owner) + "/" + encode(repositoryName),
+							+ encode(owner) + "/" + encode(repositoryName) + "/" + number,
 							"login=" + encode(user) + "&token=" + encode(token));
 		} else {
 			throw new InvalidParameterException("Login details cannot be empty");
@@ -160,7 +160,7 @@ public class Issues extends APIBase {
 	{
 		if (!user.equals("") && !token.equals("")) {
 			return HTTPPost("http://github.com/api/v2/json/issues/close/"
-							+ encode(owner) + "/" + encode(repositoryName),
+							+ encode(owner) + "/" + encode(repositoryName) + "/" + number,
 							"login=" + encode(user) + "&token=" + encode(token));
 		} else {
 			throw new InvalidParameterException("Login details cannot be empty");
@@ -177,11 +177,11 @@ public class Issues extends APIBase {
 	 * @param token
 	 * @return
 	 */
-	public static Response edit(String owner, String repositoryName, String title, String body, String user, String token)
+	public static Response edit(String owner, String repositoryName, int number, String title, String body, String user, String token)
 	{
 		if (!user.equals("") && !token.equals("")) {
 			return HTTPPost("http://github.com/api/v2/json/issues/edit/"
-							+ encode(owner) + "/" + encode(repositoryName),
+							+ encode(owner) + "/" + encode(repositoryName) + "/" + number,
 							"login=" + encode(user) + "&token=" + encode(token) + "&title=" + encode(title) + "&body=" + encode(body));
 		} else {
 			throw new InvalidParameterException("Login details cannot be empty");
