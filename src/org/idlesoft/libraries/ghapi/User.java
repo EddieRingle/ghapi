@@ -170,4 +170,14 @@ public class User extends APIBase {
 			throw new InvalidParameterException("Login details cannot be empty");
 		}
 	}
+
+	/**
+	 * Fetches GitHub's public timeline
+	 *
+	 * @return a Response object containing status code and timeline feed
+	 */
+	public static Response timeline()
+	{
+		return HTTPGet("http://query.yahooapis.com/v1/public/yql?q=" + encode("select * from atom where url='http://github.com/timeline.atom'") + "&format=json&diagnostics=false");
+	}
 }
