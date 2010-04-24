@@ -55,7 +55,11 @@ public class APIBase {
 			}
 
 			// Store response information in Response object
-			response.statusCode = conn.getResponseCode();
+			try {
+				response.statusCode = conn.getResponseCode();
+			} catch (IOException e) {
+				response.statusCode = 401;
+			}
 			response.resp = sb.toString();
 
 			// Clean up
@@ -65,7 +69,7 @@ public class APIBase {
 			in = null;
 			sb = null;
 		} catch (IOException e) {
-			e.printStackTrace();
+			response.statusCode = 401;
 		}
 		return response;
 	}
@@ -94,7 +98,11 @@ public class APIBase {
 			}
 
 			// Store response in a Response object
-			response.statusCode = conn.getResponseCode();
+			try {
+				response.statusCode = conn.getResponseCode();
+			} catch (IOException e) {
+				response.statusCode = 401;
+			}
 			response.resp = sb.toString();
 
 			// Clean up
@@ -103,7 +111,7 @@ public class APIBase {
 			in = null;
 			sb = null;
 		} catch (IOException e) {
-			e.printStackTrace();
+			response.statusCode = 401;
 		}
 		return response;
 	}
