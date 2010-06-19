@@ -150,8 +150,7 @@ public class User extends APIBase {
 	 */
 	public static Response activity(String username)
 	{
-		return HTTPGet("http://query.yahooapis.com/v1/public/yql?q=" + encode("select * from atom where url='http://github.com/"
-						+ username + ".atom'") + "&format=json&diagnostics=false");
+		return HTTPGet("http://github.com/" + encode(username) + ".json");
 	}
 
 	/**
@@ -164,8 +163,7 @@ public class User extends APIBase {
 	public static Response activity(String username, String token)
 	{
 		if (!token.equals("")) {
-			return HTTPGet("http://query.yahooapis.com/v1/public/yql?q=" + encode("select * from atom where url='http://github.com/"
-					+ username + ".private.atom?token=" + token + "'") + "&format=json&diagnostics=false");
+			return HTTPGet("http://github.com/" + encode(username) + ".private.atom?token=" + token);
 		} else {
 			throw new InvalidParameterException("Login details cannot be empty");
 		}
@@ -178,6 +176,6 @@ public class User extends APIBase {
 	 */
 	public static Response timeline()
 	{
-		return HTTPGet("http://query.yahooapis.com/v1/public/yql?q=" + encode("select * from atom where url='http://github.com/timeline.atom'") + "&format=json&diagnostics=false");
+		return HTTPGet("http://github.com/timeline.json");
 	}
 }
