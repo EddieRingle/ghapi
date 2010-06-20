@@ -163,7 +163,7 @@ public class User extends APIBase {
 	public static Response activity(String username, String token)
 	{
 		if (!token.equals("")) {
-			return HTTPGet("http://github.com/" + encode(username) + ".private.atom?token=" + token);
+			return HTTPGet("http://github.com/" + encode(username) + ".private.json?token=" + token);
 		} else {
 			throw new InvalidParameterException("Login details cannot be empty");
 		}
