@@ -1,12 +1,3 @@
-/**
- * ghapi
- * A Java wrapper for the GitHub API
- * 
- * Copyright (c) 2010 Idlesoft.
- * 
- * Licensed under the New BSD License.
- */
-
 package org.idlesoft.libraries.ghapi;
 
 import java.io.BufferedReader;
@@ -14,14 +5,39 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
 import java.net.HttpURLConnection;
+import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class APIBase {
+import org.apache.commons.codec.binary.Base64;
+
+public class APIAbstract {
+	public GitHubAPI api;
+	public String login, password;
+
 	public static class Response {
 		public int statusCode;
 		public String resp;
+		public String url;
+	}
+
+	public APIAbstract(GitHubAPI a)
+	{
+		api = a;
+	}
+
+	/**
+	 * Sets login details
+	 *
+	 * @param l - String containing Github username
+	 * @param p - String containing username's Github password
+	 */
+	public void login(String l, String p)
+	{
+		login = l;
+		password = p;
 	}
 
 	/**
@@ -31,7 +47,7 @@ public class APIBase {
 	 * @param postData
 	 * @return Response object containing status code and response body.
 	 */
-	public static Response HTTPPost(String url, String postData)
+	public Response HTTPPost(String url, String postData)
 	{
 		Response response = new Response();
 		try {
@@ -39,6 +55,12 @@ public class APIBase {
 			HttpURLConnection conn = (HttpURLConnection) (new URL(url)).openConnection();
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
+			// Add authentication details if we know them
+			if (api.api.login != null && api.api.password != null) {
+				conn.setRequestProperty("Authorization", "Basic "
+										+ Base64.encodeBase64String(
+													(api.api.login + ":" + api.api.password).getBytes()).replaceAll("\\n",""));
+			}
 			conn.connect();
 
 			// Send POST data to the server
@@ -71,6 +93,7 @@ public class APIBase {
 		} catch (IOException e) {
 			response.statusCode = 401;
 		}
+		response.url = url;
 		return response;
 	}
 
@@ -80,13 +103,19 @@ public class APIBase {
 	 * @param url
 	 * @return Response object containing status code and response body.
 	 */
-	public static Response HTTPGet(String url)
+	public Response HTTPGet(String url)
 	{
 		Response response = new Response();
 		try {
 			// Setup connection
 			HttpURLConnection conn = (HttpURLConnection) (new URL(url)).openConnection();
 			conn.setRequestMethod("GET");
+			// Add authentication details if we know them
+			if (api.api.login != null && api.api.password != null) {
+				conn.setRequestProperty("Authorization", "Basic "
+										+ Base64.encodeBase64String(
+													(api.api.login + ":" + api.api.password).getBytes()).replaceAll("\\n",""));
+			}
 			conn.connect();
 
 			// Get response from the server
@@ -113,6 +142,7 @@ public class APIBase {
 		} catch (IOException e) {
 			response.statusCode = 401;
 		}
+		response.url = url;
 		return response;
 	}
 

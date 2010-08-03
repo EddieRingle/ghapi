@@ -9,9 +9,12 @@
 
 package org.idlesoft.libraries.ghapi;
 
-import java.security.InvalidParameterException;
+public class User extends APIAbstract {
 
-public class User extends APIBase {
+	public User(GitHubAPI a)
+	{
+		super(a);
+	}
 
 	/**
 	 * Searches GitHub for users matching supplied query
@@ -19,7 +22,7 @@ public class User extends APIBase {
 	 * @param query
 	 * @return a Response object containing status code and search results
 	 */
-	public static Response search(String query)
+	public Response search(String query)
 	{
 		return HTTPGet("http://github.com/api/v2/json/user/search/" + encode(query));
 	}
@@ -30,29 +33,10 @@ public class User extends APIBase {
 	 * @param username
 	 * @return a Response object containing status code and user information
 	 */
-	public static Response info(String username)
+	public Response info(String username)
 	{
 		return HTTPGet("http://github.com/api/v2/json/user/show/"
 						+ encode(username));
-	}
-
-	/**
-	 * Fetches info for a given user, includes private information
-	 * 
-	 * @param username
-	 * @param token
-	 * @return a Response object containing status code and user information
-	 */
-	public static Response info(String username, String token)
-	{
-		if (!token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/user/show/"
-							+ encode(username) + "?login="
-							+ encode(username) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -61,7 +45,7 @@ public class User extends APIBase {
 	 * @param username
 	 * @return a Response object containing status code and following list
 	 */
-	public static Response following(String username) {
+	public Response following(String username) {
 		return HTTPGet("http://github.com/api/v2/json/user/show/"
 						+ encode(username) + "/following");
 	}
@@ -72,7 +56,7 @@ public class User extends APIBase {
 	 * @param username
 	 * @return a Response object containing status code and list of followers
 	 */
-	public static Response followers(String username) {
+	public Response followers(String username) {
 		return HTTPGet("http://github.com/api/v2/json/user/show/"
 						+ encode(username) + "/followers");
 	}
@@ -81,36 +65,22 @@ public class User extends APIBase {
 	 * Follows a given user
 	 * 
 	 * @param username
-	 * @param user
-	 * @param token
 	 * @return a Response object containing status code and response body
 	 */
-	public static Response follow(String username, String user, String token)
+	public Response follow(String username)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPPost("http://github.com/api/v2/json/user/follow/" + encode(username),
-							"login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPPost("http://github.com/api/v2/json/user/follow/" + encode(username), "");
 	}
 
 	/**
 	 * Unfollows a given user
 	 * 
 	 * @param username
-	 * @param user
-	 * @param token
 	 * @return a Response object containing status code and response body
 	 */
-	public static Response unfollow(String username, String user, String token)
+	public Response unfollow(String username)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPPost("http://github.com/api/v2/json/user/unfollow/" + encode(username),
-							"login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPPost("http://github.com/api/v2/json/user/unfollow/" + encode(username), "");
 	}
 
 	/**
@@ -119,27 +89,9 @@ public class User extends APIBase {
 	 * @param username
 	 * @return a Response object containing status code and list of watched repositories
 	 */
-	public static Response watching(String username)
+	public Response watching(String username)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/watched/" + encode(username));
-	}
-
-	/**
-	 * Fetches a list of repositories a user is watching, will include a user's private repos
-	 *
-	 * @param username
-	 * @param user
-	 * @param token
-	 * @return a Response object containing a list of watched repositories
-	 */
-	public static Response watching(String username, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/watched/" + encode(username)
-							+ "?login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -148,7 +100,7 @@ public class User extends APIBase {
 	 * @param username
 	 * @return a Response object containing status code and public activity feed
 	 */
-	public static Response activity(String username)
+	public Response activity(String username)
 	{
 		return HTTPGet("http://github.com/" + encode(username) + ".json");
 	}
@@ -160,13 +112,9 @@ public class User extends APIBase {
 	 * @param token
 	 * @return a Response object containing status code and private activity feed
 	 */
-	public static Response activity(String username, String token)
+	public Response private_activity()
 	{
-		if (!token.equals("")) {
-			return HTTPGet("http://github.com/" + encode(username) + ".private.json?token=" + token);
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPGet("http://github.com/" + encode(api.api.login) + ".private.json");
 	}
 
 	/**
@@ -174,7 +122,7 @@ public class User extends APIBase {
 	 *
 	 * @return a Response object containing status code and timeline feed
 	 */
-	public static Response timeline()
+	public Response timeline()
 	{
 		return HTTPGet("http://github.com/timeline.json");
 	}

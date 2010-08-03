@@ -9,9 +9,12 @@
 
 package org.idlesoft.libraries.ghapi;
 
-import java.security.InvalidParameterException;
+public class Repository extends APIAbstract {
 
-public class Repository extends APIBase {
+	public Repository(GitHubAPI a)
+	{
+		super(a);
+	}
 
 	/**
 	 * Searches GitHub for repositories matching supplied query
@@ -19,29 +22,9 @@ public class Repository extends APIBase {
 	 * @param query
 	 * @return a Response object containing status code and search results
 	 */
-	public static Response search(String query)
+	public Response search(String query)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/search/" + encode(query));
-	}
-
-	/**
-	 * Searches GitHub for repositories matching supplied query, includes private repositories
-	 * 
-	 * @param query
-	 * @param user
-	 * @param token
-	 * @return a Response object containing status code and search results
-	 */
-	public static Response search(String query, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/search/"
-							+ encode(query) + "?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -51,33 +34,11 @@ public class Repository extends APIBase {
 	 * @param repositoryName
 	 * @return a Response object containing status code and repository information
 	 */
-	public static Response info(String owner, String repositoryName)
+	public Response info(String owner, String repositoryName)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName));
-	}
-
-	/**
-	 * Fetches info for a given repository, includes private repositories
-	 * 
-	 * @param owner
-	 * @param repositoryName
-	 * @param user
-	 * @param token
-	 * @return a Response object containing status code and repository information
-	 */
-	public static Response info(String owner, String repositoryName, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/show/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -86,30 +47,10 @@ public class Repository extends APIBase {
 	 * @param target
 	 * @return a Response object containing status code and list of repositories
 	 */
-	public static Response list(String target)
+	public Response list(String target)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 						+ encode(target));
-	}
-
-	/**
-	 * Lists repositories of a given user, includes private repositories
-	 * 
-	 * @param target
-	 * @param user
-	 * @param token
-	 * @return a Response object containing status code and list of repositories
-	 */
-	public static Response list(String target, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/show/"
-							+ encode(target) + "?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -117,21 +58,13 @@ public class Repository extends APIBase {
 	 * 
 	 * @param owner
 	 * @param repositoryName
-	 * @param user
-	 * @param token
 	 * @return a Response object containing status code and updated repository information
 	 */
-	public static Response watch(String owner, String repositoryName, String user, String token)
+	public Response watch(String owner, String repositoryName)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/watch/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPGet("http://github.com/api/v2/json/repos/watch/"
+						+ encode(owner) + "/"
+						+ encode(repositoryName));
 	}
 
 	/**
@@ -139,21 +72,13 @@ public class Repository extends APIBase {
 	 * 
 	 * @param owner
 	 * @param repositoryName
-	 * @param user
-	 * @param token
 	 * @return a Response object containing status code and updated repository information
 	 */
-	public static Response unwatch(String owner, String repositoryName, String user, String token)
+	public Response unwatch(String owner, String repositoryName)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/unwatch/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPGet("http://github.com/api/v2/json/repos/unwatch/"
+						+ encode(owner) + "/"
+						+ encode(repositoryName));
 	}
 
 	/**
@@ -161,21 +86,13 @@ public class Repository extends APIBase {
 	 * 
 	 * @param owner
 	 * @param repositoryName
-	 * @param user
-	 * @param token
 	 * @return a Response object containing status code and information about the new fork
 	 */
-	public static Response fork(String owner, String repositoryName, String user, String token)
+	public Response fork(String owner, String repositoryName)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/fork/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPGet("http://github.com/api/v2/json/repos/fork/"
+						+ encode(owner) + "/"
+						+ encode(repositoryName));
 	}
 
 	/**
@@ -185,33 +102,11 @@ public class Repository extends APIBase {
 	 * @param repositoryName
 	 * @return a Response object containing status code and list of collaborators
 	 */
-	public static Response collaborators(String owner, String repositoryName)
+	public Response collaborators(String owner, String repositoryName)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName) + "/collaborators");
-	}
-
-	/**
-	 * Fetches a list of collaborators for a repository, includes private repos
-	 *
-	 * @param owner
-	 * @param repositoryName
-	 * @param user
-	 * @param token
-	 * @return a Response object containing the list of collaborators
-	 */
-	public static Response collaborators(String owner, String repositoryName, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/show/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "/collaborators?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -221,33 +116,11 @@ public class Repository extends APIBase {
 	 * @param repositoryName
 	 * @return a Response object containing status code and list of forks
 	 */
-	public static Response network(String owner, String repositoryName)
+	public Response network(String owner, String repositoryName)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName) + "/network");
-	}
-
-	/**
-	 * Fetches a list of forks for a repository, includes private repos
-	 *
-	 * @param owner
-	 * @param repositoryName
-	 * @param user
-	 * @param token
-	 * @return a Response object containing the list of forks
-	 */
-	public static Response network(String owner, String repositoryName, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/show/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "/network?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -257,33 +130,11 @@ public class Repository extends APIBase {
 	 * @param repositoryName
 	 * @return a Response object containing status code and list of languages
 	 */
-	public static Response languages(String owner, String repositoryName)
+	public Response languages(String owner, String repositoryName)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 				+ encode(owner) + "/"
 				+ encode(repositoryName) + "/languages");
-	}
-
-	/**
-	 * Fetches a list of languages used in a repository, includes private repos
-	 *
-	 * @param owner
-	 * @param repositoryName
-	 * @param user
-	 * @param token
-	 * @return a Response object containing the list of languages
-	 */
-	public static Response languages(String owner, String repositoryName, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/show/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "/languages?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -293,33 +144,11 @@ public class Repository extends APIBase {
 	 * @param repositoryName
 	 * @return a Response object containing status code and list of tags
 	 */
-	public static Response tags(String owner, String repositoryName)
+	public Response tags(String owner, String repositoryName)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 				+ encode(owner) + "/"
 				+ encode(repositoryName) + "/tags");
-	}
-
-	/**
-	 * Fetches a list of tags on a repository, includes private repos
-	 *
-	 * @param owner
-	 * @param repositoryName
-	 * @param user
-	 * @param token
-	 * @return a Response object containing the list of tags
-	 */
-	public static Response tags(String owner, String repositoryName, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/show/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "/tags?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 
 	/**
@@ -329,32 +158,10 @@ public class Repository extends APIBase {
 	 * @param repositoryName
 	 * @return a Response object containing status code and list of branches
 	 */
-	public static Response branches(String owner, String repositoryName)
+	public Response branches(String owner, String repositoryName)
 	{
 		return HTTPGet("http://github.com/api/v2/json/repos/show/"
 				+ encode(owner) + "/"
 				+ encode(repositoryName) + "/branches");
-	}
-
-	/**
-	 * Fetches a list of branches for a repository, includes private repos
-	 *
-	 * @param owner
-	 * @param repositoryName
-	 * @param user
-	 * @param token
-	 * @return a Response object containing list of branches
-	 */
-	public static Response branches(String owner, String repositoryName, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/repos/show/"
-							+ encode(owner) + "/"
-							+ encode(repositoryName) + "/branches?login="
-							+ encode(user) + "&token="
-							+ encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 }

@@ -9,9 +9,14 @@
 
 package org.idlesoft.libraries.ghapi;
 
-import java.security.InvalidParameterException;
 
-public class Issues extends APIBase {
+public class Issues extends APIAbstract {
+
+	public Issues(GitHubAPI a)
+	{
+		super(a);
+	}
+
 	/**
 	 * Searches for issues for a repository
 	 *
@@ -21,20 +26,10 @@ public class Issues extends APIBase {
 	 * @param query
 	 * @return
 	 */
-	public static Response search(String owner, String repositoryName, String state, String query)
+	public Response search(String owner, String repositoryName, String state, String query)
 	{
 		return HTTPGet("http://github.com/api/v2/json/issues/search/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(state) + "/" + encode(query));
-	}
-	public static Response search(String owner, String repositoryName, String state, String query, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/issues/search/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(state) + "/" + encode(query)
-							+ "?login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 	/**
 	 * Fetches a list of open or closed issues for a repository
@@ -44,20 +39,10 @@ public class Issues extends APIBase {
 	 * @param state
 	 * @return
 	 */
-	public static Response list(String owner, String repositoryName, String state)
+	public Response list(String owner, String repositoryName, String state)
 	{
 		return HTTPGet("http://github.com/api/v2/json/issues/list/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(state));
-	}
-	public static Response list(String owner, String repositoryName, String state, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/issues/list/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(state)
-							+ "?login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 	/**
 	 * View an individual issue
@@ -67,20 +52,10 @@ public class Issues extends APIBase {
 	 * @param number
 	 * @return
 	 */
-	public static Response issue(String owner, String repositoryName, int number)
+	public Response issue(String owner, String repositoryName, int number)
 	{
 		return HTTPGet("http://github.com/api/v2/json/issues/show/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode("" + number + ""));
-	}
-	public static Response issue(String owner, String repositoryName, int number, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/issues/show/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + encode("" + number + "")
-							+ "?login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 	/**
 	 * Fetches a list of comments for a specific issue
@@ -90,20 +65,10 @@ public class Issues extends APIBase {
 	 * @param number
 	 * @return
 	 */
-	public static Response list_comments(String owner, String repositoryName, int number)
+	public Response list_comments(String owner, String repositoryName, int number)
 	{
 		return HTTPGet("http://github.com/api/v2/json/issues/comments/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode("" + number + ""));
-	}
-	public static Response list_comments(String owner, String repositoryName, int number, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/issues/comments/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + encode("" + number + "")
-							+ "?login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 	/**
 	 * Opens a new issue with given title and body text
@@ -112,19 +77,13 @@ public class Issues extends APIBase {
 	 * @param repositoryName
 	 * @param title
 	 * @param body
-	 * @param user
-	 * @param token
 	 * @return
 	 */
-	public static Response open(String owner, String repositoryName, String title, String body, String user, String token)
+	public Response open(String owner, String repositoryName, String title, String body)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPPost("http://github.com/api/v2/json/issues/open/"
-							+ encode(owner) + "/" + encode(repositoryName),
-							"login=" + encode(user) + "&token=" + encode(token) + "&title=" + encode(title) + "&body=" + encode(body));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPPost("http://github.com/api/v2/json/issues/open/"
+						+ encode(owner) + "/" + encode(repositoryName),
+						"title=" + encode(title) + "&body=" + encode(body));
 	}
 	/**
 	 * Reopens an issue
@@ -132,19 +91,12 @@ public class Issues extends APIBase {
 	 * @param owner
 	 * @param repositoryName
 	 * @param number
-	 * @param user
-	 * @param token
 	 * @return
 	 */
-	public static Response reopen(String owner, String repositoryName, int number, String user, String token)
+	public Response reopen(String owner, String repositoryName, int number)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPPost("http://github.com/api/v2/json/issues/reopen/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + number,
-							"login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPPost("http://github.com/api/v2/json/issues/reopen/"
+						+ encode(owner) + "/" + encode(repositoryName) + "/" + number, "");
 	}
 	/**
 	 * Closes an issue
@@ -152,19 +104,12 @@ public class Issues extends APIBase {
 	 * @param owner
 	 * @param repositoryName
 	 * @param number
-	 * @param user
-	 * @param token
 	 * @return
 	 */
-	public static Response close(String owner, String repositoryName, int number, String user, String token)
+	public Response close(String owner, String repositoryName, int number)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPPost("http://github.com/api/v2/json/issues/close/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + number,
-							"login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPPost("http://github.com/api/v2/json/issues/close/"
+						+ encode(owner) + "/" + encode(repositoryName) + "/" + number, "");
 	}
 	/**
 	 * Edits an issue with given title and body text
@@ -173,19 +118,13 @@ public class Issues extends APIBase {
 	 * @param repositoryName
 	 * @param title
 	 * @param body
-	 * @param user
-	 * @param token
 	 * @return
 	 */
-	public static Response edit(String owner, String repositoryName, int number, String title, String body, String user, String token)
+	public Response edit(String owner, String repositoryName, int number, String title, String body)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPPost("http://github.com/api/v2/json/issues/edit/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + number,
-							"login=" + encode(user) + "&token=" + encode(token) + "&title=" + encode(title) + "&body=" + encode(body));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPPost("http://github.com/api/v2/json/issues/edit/"
+						+ encode(owner) + "/" + encode(repositoryName) + "/" + number,
+						"title=" + encode(title) + "&body=" + encode(body));
 	}
 	/**
 	 * Fetches a list of issue labels associated with a repository
@@ -194,20 +133,10 @@ public class Issues extends APIBase {
 	 * @param repositoryName
 	 * @return
 	 */
-	public static Response labels(String owner, String repositoryName)
+	public Response labels(String owner, String repositoryName)
 	{
 		return HTTPGet("http://github.com/api/v2/json/issues/labels/"
 						+ encode(owner) + "/" + encode(repositoryName));
-	}
-	public static Response labels(String owner, String repositoryName, String user, String token)
-	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/issues/labels/"
-							+ encode(owner) + "/" + encode(repositoryName)
-							+ "?login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
 	}
 	/**
 	 * Adds a label to an issue, creating it if it does not exist
@@ -216,19 +145,12 @@ public class Issues extends APIBase {
 	 * @param repositoryName
 	 * @param label
 	 * @param number
-	 * @param user
-	 * @param token
 	 * @return
 	 */
-	public static Response add_label(String owner, String repositoryName, String label, int number, String user, String token)
+	public Response add_label(String owner, String repositoryName, String label, int number)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/issues/label/add/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(label) + "/" + encode("" + number + "")
-							+ "?login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPGet("http://github.com/api/v2/json/issues/label/add/"
+						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(label) + "/" + encode("" + number + ""));
 	}
 	/**
 	 * Removes a label from an issue
@@ -237,19 +159,12 @@ public class Issues extends APIBase {
 	 * @param repositoryName
 	 * @param label
 	 * @param number
-	 * @param user
-	 * @param token
 	 * @return
 	 */
-	public static Response remove_label(String owner, String repositoryName, String label, int number, String user, String token)
+	public Response remove_label(String owner, String repositoryName, String label, int number)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPGet("http://github.com/api/v2/json/issues/label/remove/"
-							+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(label) + "/" + encode("" + number + "")
-							+ "?login=" + encode(user) + "&token=" + encode(token));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+		return HTTPGet("http://github.com/api/v2/json/issues/label/remove/"
+						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(label) + "/" + encode("" + number + ""));
 	}
 	/**
 	 * Adds a comment to an issue
@@ -258,18 +173,12 @@ public class Issues extends APIBase {
 	 * @param repositoryName
 	 * @param number
 	 * @param body
-	 * @param user
-	 * @param token
 	 * @return
 	 */
-	public static Response add_comment(String owner, String repositoryName, int number, String body, String user, String token)
+	public Response add_comment(String owner, String repositoryName, int number, String body)
 	{
-		if (!user.equals("") && !token.equals("")) {
-			return HTTPPost("http://github.com/api/v2/json/issues/comment/"
+		return HTTPPost("http://github.com/api/v2/json/issues/comment/"
 							+ encode(owner) + "/" + encode(repositoryName) + "/" + encode("" + number + ""),
-							"login=" + encode(user) + "&token=" + encode(token) + "&comment=" + encode(body));
-		} else {
-			throw new InvalidParameterException("Login details cannot be empty");
-		}
+							"comment=" + encode(body));
 	}
 }
