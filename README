@@ -12,6 +12,12 @@ Authenticating in GHAPI:
 	anonymously. To authenticate:
 		gapi.authenticate("myusername", "mypassword");
 
+Anonymizing your request in GHAPI:
+
+	If you no longer wish to make authenticated requests, just do the
+	following:
+		gapi.goStealth();
+
 Using GHAPI:
 
 	Accessing the API through GHAPI is done through objects instantiated
