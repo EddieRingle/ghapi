@@ -1,1 +1,29 @@
 A Java wrapper for v2 of the GitHub API.
+
+To setup GHAPI, import the GitHubAPI class and do the following:
+
+1. Create a GitHubAPI object:
+	GitHubAPI gapi = new GitHubAPI();
+2. That's it!
+
+Authenticating in GHAPI:
+
+	When you first create the GitHubAPI object, all requests will be made
+	anonymously. To authenticate:
+		gapi.authenticate("myusername", "mypassword");
+
+Using GHAPI:
+
+	Accessing the API through GHAPI is done through objects instantiated
+	by the GitHubAPI class, each containing their own API calls. You can
+	access each by doing the following:
+		// Repository
+		gapi.repo.<...>
+		// User
+		gapi.user.<...>
+		// Issues
+		gapi.issues.<...>
+		// Commits
+		gapi.commits.<...>
+		// Object
+		gapi.object.<...>
