@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.Authenticator;
 import java.net.HttpURLConnection;
-import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import org.apache.commons.codec.binary.Base64;
+import biz.source_code.base64Coder.Base64Coder;
 
 public class APIAbstract {
 	public GitHubAPI api;
@@ -58,8 +56,8 @@ public class APIAbstract {
 			// Add authentication details if we know them
 			if (api.api.login != null && api.api.password != null) {
 				conn.setRequestProperty("Authorization", "Basic "
-										+ Base64.encodeBase64String(
-													(api.api.login + ":" + api.api.password).getBytes()).replaceAll("\\n",""));
+										+ Base64Coder.encodeString(
+													(api.api.login + ":" + api.api.password)).replaceAll("\\n",""));
 			}
 			conn.connect();
 
@@ -113,8 +111,8 @@ public class APIAbstract {
 			// Add authentication details if we know them
 			if (api.api.login != null && api.api.password != null) {
 				conn.setRequestProperty("Authorization", "Basic "
-										+ Base64.encodeBase64String(
-													(api.api.login + ":" + api.api.password).getBytes()).replaceAll("\\n",""));
+										+ Base64Coder.encodeString(
+													(api.api.login + ":" + api.api.password)).replaceAll("\\n",""));
 			}
 			conn.connect();
 
