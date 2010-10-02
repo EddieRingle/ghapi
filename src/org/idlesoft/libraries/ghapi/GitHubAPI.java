@@ -16,6 +16,7 @@ public class GitHubAPI {
 	public Commits commits;
 	public Issues issues;
 	public org.idlesoft.libraries.ghapi.Object object;
+	public Gists gists;
 
 	public GitHubAPI()
 	{
@@ -29,6 +30,7 @@ public class GitHubAPI {
 		commits = new Commits(this);
 		issues = new Issues(this);
 		object = new org.idlesoft.libraries.ghapi.Object(this);
+		gists = new Gists(this);
 
 		return this;
 	}
