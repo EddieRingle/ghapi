@@ -23,7 +23,7 @@ public class Gists extends APIAbstract {
 	 * @return
 	 */
 	public Response get_metadata(String gist_id) {
-	    return HTTPGet("http://gist.github.com/api/v1/json/" + encode(gist_id));
+	    return HTTPGet("https://gist.github.com/api/v1/json/" + encode(gist_id));
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class Gists extends APIAbstract {
 	 * @return
 	 */
 	public Response get_content(String gist_id, String filename) {
-	    return HTTPGet("http://gist.github.com/raw/" + encode(gist_id) + "/" + encode(filename));
+	    return HTTPGet("https://gist.github.com/raw/" + encode(gist_id) + "/" + encode(filename));
 	}
 
 	/**
@@ -44,6 +44,6 @@ public class Gists extends APIAbstract {
 	 * @return
 	 */
 	public Response list_gists(String username) {
-	    return HTTPGet("http://gist.github.com/api/v1/json/gists/" + encode(username));
+	    return HTTPGet("https://gist.github.com/api/v1/json/gists/" + encode(username));
 	}
 }

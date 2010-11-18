@@ -28,7 +28,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response search(String owner, String repositoryName, String state, String query)
 	{
-		return HTTPGet("http://github.com/api/v2/json/issues/search/"
+		return HTTPGet("https://github.com/api/v2/json/issues/search/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(state) + "/" + encode(query));
 	}
 	/**
@@ -41,7 +41,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response list(String owner, String repositoryName, String state)
 	{
-		return HTTPGet("http://github.com/api/v2/json/issues/list/"
+		return HTTPGet("https://github.com/api/v2/json/issues/list/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(state));
 	}
 	/**
@@ -54,7 +54,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response issue(String owner, String repositoryName, int number)
 	{
-		return HTTPGet("http://github.com/api/v2/json/issues/show/"
+		return HTTPGet("https://github.com/api/v2/json/issues/show/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode("" + number + ""));
 	}
 	/**
@@ -67,7 +67,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response list_comments(String owner, String repositoryName, int number)
 	{
-		return HTTPGet("http://github.com/api/v2/json/issues/comments/"
+		return HTTPGet("https://github.com/api/v2/json/issues/comments/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode("" + number + ""));
 	}
 	/**
@@ -81,7 +81,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response open(String owner, String repositoryName, String title, String body)
 	{
-		return HTTPPost("http://github.com/api/v2/json/issues/open/"
+		return HTTPPost("https://github.com/api/v2/json/issues/open/"
 						+ encode(owner) + "/" + encode(repositoryName),
 						"title=" + encode(title) + "&body=" + encode(body));
 	}
@@ -95,7 +95,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response reopen(String owner, String repositoryName, int number)
 	{
-		return HTTPPost("http://github.com/api/v2/json/issues/reopen/"
+		return HTTPPost("https://github.com/api/v2/json/issues/reopen/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + number, "");
 	}
 	/**
@@ -108,7 +108,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response close(String owner, String repositoryName, int number)
 	{
-		return HTTPPost("http://github.com/api/v2/json/issues/close/"
+		return HTTPPost("https://github.com/api/v2/json/issues/close/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + number, "");
 	}
 	/**
@@ -122,7 +122,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response edit(String owner, String repositoryName, int number, String title, String body)
 	{
-		return HTTPPost("http://github.com/api/v2/json/issues/edit/"
+		return HTTPPost("https://github.com/api/v2/json/issues/edit/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + number,
 						"title=" + encode(title) + "&body=" + encode(body));
 	}
@@ -135,7 +135,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response labels(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/issues/labels/"
+		return HTTPGet("https://github.com/api/v2/json/issues/labels/"
 						+ encode(owner) + "/" + encode(repositoryName));
 	}
 	/**
@@ -149,7 +149,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response add_label(String owner, String repositoryName, String label, int number)
 	{
-		return HTTPGet("http://github.com/api/v2/json/issues/label/add/"
+		return HTTPGet("https://github.com/api/v2/json/issues/label/add/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(label) + "/" + encode("" + number + ""));
 	}
 	/**
@@ -163,7 +163,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response remove_label(String owner, String repositoryName, String label, int number)
 	{
-		return HTTPGet("http://github.com/api/v2/json/issues/label/remove/"
+		return HTTPGet("https://github.com/api/v2/json/issues/label/remove/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(label) + "/" + encode("" + number + ""));
 	}
 	/**
@@ -177,7 +177,7 @@ public class Issues extends APIAbstract {
 	 */
 	public Response add_comment(String owner, String repositoryName, int number, String body)
 	{
-		return HTTPPost("http://github.com/api/v2/json/issues/comment/"
+		return HTTPPost("https://github.com/api/v2/json/issues/comment/"
 							+ encode(owner) + "/" + encode(repositoryName) + "/" + encode("" + number + ""),
 							"comment=" + encode(body));
 	}

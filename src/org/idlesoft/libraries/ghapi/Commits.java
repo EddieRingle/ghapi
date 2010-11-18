@@ -26,7 +26,7 @@ public class Commits extends APIAbstract {
 	 */
 	public Response list(String owner, String repositoryName, String branch)
 	{
-		return HTTPGet("http://github.com/api/v2/json/commits/list/"
+		return HTTPGet("https://github.com/api/v2/json/commits/list/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(branch));
 	}
 	/**
@@ -40,7 +40,7 @@ public class Commits extends APIAbstract {
 	 */
 	public Response list_for_file(String owner, String repositoryName, String branch, String path)
 	{
-		return HTTPGet("http://github.com/api/v2/json/commits/list/"
+		return HTTPGet("https://github.com/api/v2/json/commits/list/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(branch) + "/" + encode(path));
 	}
 	/**
@@ -53,7 +53,7 @@ public class Commits extends APIAbstract {
 	 */
 	public Response commit(String owner, String repositoryName, String sha)
 	{
-		return HTTPGet("http://github.com/api/v2/json/commits/show/"
+		return HTTPGet("https://github.com/api/v2/json/commits/show/"
 				+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(sha));
 	}
 }

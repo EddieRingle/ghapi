@@ -27,7 +27,7 @@ public class Object extends APIAbstract {
 	 */
 	public Response tree(String owner, String repositoryName, String sha)
 	{
-		return HTTPGet("http://github.com/api/v2/json/tree/show/"
+		return HTTPGet("https://github.com/api/v2/json/tree/show/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(sha));
 	}
 	/**
@@ -41,7 +41,7 @@ public class Object extends APIAbstract {
 	 */
 	public Response blob(String owner, String repositoryName, String treeSha, String path)
 	{
-		return HTTPGet("http://github.com/api/v2/json/blob/show/"
+		return HTTPGet("https://github.com/api/v2/json/blob/show/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(treeSha) + "/" + encode(path));
 	}
 	/**
@@ -54,7 +54,7 @@ public class Object extends APIAbstract {
 	 */
 	public Response list_blobs(String owner, String repositoryName, String treeSha)
 	{
-		return HTTPGet("http://github.com/api/v2/json/blob/all/"
+		return HTTPGet("https://github.com/api/v2/json/blob/all/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(treeSha));
 	}
 	/**
@@ -67,7 +67,7 @@ public class Object extends APIAbstract {
 	 */
 	public Response raw(String owner, String repositoryName, String sha)
 	{
-		return HTTPGet("http://github.com/api/v2/json/blob/show/"
+		return HTTPGet("https://github.com/api/v2/json/blob/show/"
 						+ encode(owner) + "/" + encode(repositoryName) + "/" + encode(sha));
 	}
 }

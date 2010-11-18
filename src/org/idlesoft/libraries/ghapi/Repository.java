@@ -24,7 +24,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response search(String query)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/search/" + encode(query));
+		return HTTPGet("https://github.com/api/v2/json/repos/search/" + encode(query));
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response info(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+		return HTTPGet("https://github.com/api/v2/json/repos/show/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName));
 	}
@@ -49,7 +49,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response list(String target)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+		return HTTPGet("https://github.com/api/v2/json/repos/show/"
 						+ encode(target));
 	}
 
@@ -62,7 +62,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response watch(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/watch/"
+		return HTTPGet("https://github.com/api/v2/json/repos/watch/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName));
 	}
@@ -76,7 +76,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response unwatch(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/unwatch/"
+		return HTTPGet("https://github.com/api/v2/json/repos/unwatch/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName));
 	}
@@ -90,7 +90,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response fork(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/fork/"
+		return HTTPGet("https://github.com/api/v2/json/repos/fork/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName));
 	}
@@ -104,7 +104,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response collaborators(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+		return HTTPGet("https://github.com/api/v2/json/repos/show/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName) + "/collaborators");
 	}
@@ -118,7 +118,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response network(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+		return HTTPGet("https://github.com/api/v2/json/repos/show/"
 						+ encode(owner) + "/"
 						+ encode(repositoryName) + "/network");
 	}
@@ -132,7 +132,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response languages(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+		return HTTPGet("https://github.com/api/v2/json/repos/show/"
 				+ encode(owner) + "/"
 				+ encode(repositoryName) + "/languages");
 	}
@@ -146,7 +146,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response tags(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+		return HTTPGet("https://github.com/api/v2/json/repos/show/"
 				+ encode(owner) + "/"
 				+ encode(repositoryName) + "/tags");
 	}
@@ -160,7 +160,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response branches(String owner, String repositoryName)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/show/"
+		return HTTPGet("https://github.com/api/v2/json/repos/show/"
 				+ encode(owner) + "/"
 				+ encode(repositoryName) + "/branches");
 	}

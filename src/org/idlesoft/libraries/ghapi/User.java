@@ -24,7 +24,7 @@ public class User extends APIAbstract {
 	 */
 	public Response search(String query)
 	{
-		return HTTPGet("http://github.com/api/v2/json/user/search/" + encode(query));
+		return HTTPGet("https://github.com/api/v2/json/user/search/" + encode(query));
 	}
 
 	/**
@@ -35,7 +35,7 @@ public class User extends APIAbstract {
 	 */
 	public Response info(String username)
 	{
-		return HTTPGet("http://github.com/api/v2/json/user/show/"
+		return HTTPGet("https://github.com/api/v2/json/user/show/"
 						+ encode(username));
 	}
 
@@ -46,7 +46,7 @@ public class User extends APIAbstract {
 	 * @return a Response object containing status code and following list
 	 */
 	public Response following(String username) {
-		return HTTPGet("http://github.com/api/v2/json/user/show/"
+		return HTTPGet("https://github.com/api/v2/json/user/show/"
 						+ encode(username) + "/following");
 	}
 
@@ -57,7 +57,7 @@ public class User extends APIAbstract {
 	 * @return a Response object containing status code and list of followers
 	 */
 	public Response followers(String username) {
-		return HTTPGet("http://github.com/api/v2/json/user/show/"
+		return HTTPGet("https://github.com/api/v2/json/user/show/"
 						+ encode(username) + "/followers");
 	}
 
@@ -69,7 +69,7 @@ public class User extends APIAbstract {
 	 */
 	public Response follow(String username)
 	{
-		return HTTPPost("http://github.com/api/v2/json/user/follow/" + encode(username), "");
+		return HTTPPost("https://github.com/api/v2/json/user/follow/" + encode(username), "");
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class User extends APIAbstract {
 	 */
 	public Response unfollow(String username)
 	{
-		return HTTPPost("http://github.com/api/v2/json/user/unfollow/" + encode(username), "");
+		return HTTPPost("https://github.com/api/v2/json/user/unfollow/" + encode(username), "");
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class User extends APIAbstract {
 	 */
 	public Response watching(String username)
 	{
-		return HTTPGet("http://github.com/api/v2/json/repos/watched/" + encode(username));
+		return HTTPGet("https://github.com/api/v2/json/repos/watched/" + encode(username));
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class User extends APIAbstract {
 	 */
 	public Response activity(String username)
 	{
-		return HTTPGet("http://github.com/" + encode(username) + ".json");
+		return HTTPGet("https://github.com/" + encode(username) + ".json");
 	}
 
 	/**
@@ -114,7 +114,7 @@ public class User extends APIAbstract {
 	 */
 	public Response private_activity()
 	{
-		return HTTPGet("http://github.com/" + encode(api.api.login) + ".private.json");
+		return HTTPGet("https://github.com/" + encode(api.api.login) + ".private.json");
 	}
 
 	/**
@@ -124,6 +124,6 @@ public class User extends APIAbstract {
 	 */
 	public Response timeline()
 	{
-		return HTTPGet("http://github.com/timeline.json");
+		return HTTPGet("https://github.com/timeline.json");
 	}
 }
