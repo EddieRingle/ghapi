@@ -44,4 +44,9 @@ public class GitHubAPI {
 	{
 		api.login(null, null);
 	}
+
+	public String getLogin()
+	{
+		return api.login;
+	}
 }
