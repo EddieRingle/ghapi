@@ -1,15 +1,18 @@
 package org.idlesoft.libraries.ghapi;
 
+import biz.source_code.base64Coder.Base64Coder;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import biz.source_code.base64Coder.Base64Coder;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 
 public class APIAbstract {
 	public GitHubAPI api;
@@ -19,6 +22,13 @@ public class APIAbstract {
 		public int statusCode;
 		public String resp;
 		public String url;
+	}
+
+	public static class LiberalHostnameVerifier implements HostnameVerifier {
+        public boolean verify(String hostname, SSLSession session) {
+            /* Just return true */
+            return true;
+        }
 	}
 
 	public APIAbstract(GitHubAPI a)
@@ -50,7 +60,7 @@ public class APIAbstract {
 		Response response = new Response();
 		try {
 			// Setup connection
-			HttpURLConnection conn = (HttpURLConnection) (new URL(url)).openConnection();
+			HttpsURLConnection conn = (HttpsURLConnection) (new URL(url)).openConnection();
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
 			// Add authentication details if we know them
@@ -59,6 +69,7 @@ public class APIAbstract {
 										+ Base64Coder.encodeString(
 													(api.api.login + ":" + api.api.password)).replaceAll("\\n",""));
 			}
+			conn.setHostnameVerifier(new LiberalHostnameVerifier());
 			conn.connect();
 
 			// Send POST data to the server
@@ -78,7 +89,7 @@ public class APIAbstract {
 			try {
 				response.statusCode = conn.getResponseCode();
 			} catch (IOException e) {
-				response.statusCode = 401;
+				response.statusCode = 999;
 			}
 			response.resp = sb.toString();
 
@@ -89,7 +100,7 @@ public class APIAbstract {
 			in = null;
 			sb = null;
 		} catch (IOException e) {
-			response.statusCode = 401;
+			response.statusCode = 999;
 		}
 		response.url = url;
 		return response;
@@ -106,7 +117,7 @@ public class APIAbstract {
 		Response response = new Response();
 		try {
 			// Setup connection
-			HttpURLConnection conn = (HttpURLConnection) (new URL(url)).openConnection();
+			HttpsURLConnection conn = (HttpsURLConnection) (new URL(url)).openConnection();
 			conn.setRequestMethod("GET");
 			// Add authentication details if we know them
 			if (api.api.login != null && api.api.password != null) {
@@ -114,6 +125,7 @@ public class APIAbstract {
 										+ Base64Coder.encodeString(
 													(api.api.login + ":" + api.api.password)).replaceAll("\\n",""));
 			}
+			conn.setHostnameVerifier(new LiberalHostnameVerifier());
 			conn.connect();
 
 			// Get response from the server
@@ -128,7 +140,7 @@ public class APIAbstract {
 			try {
 				response.statusCode = conn.getResponseCode();
 			} catch (IOException e) {
-				response.statusCode = 401;
+				response.statusCode = 999;
 			}
 			response.resp = sb.toString();
 
@@ -138,7 +150,7 @@ public class APIAbstract {
 			in = null;
 			sb = null;
 		} catch (IOException e) {
-			response.statusCode = 401;
+			response.statusCode = 999;
 		}
 		response.url = url;
 		return response;
