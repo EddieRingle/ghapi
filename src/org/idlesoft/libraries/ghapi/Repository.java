@@ -24,7 +24,7 @@ public class Repository extends APIAbstract {
 	 */
 	public Response search(String query)
 	{
-		return HTTPGet("https://github.com/api/v2/json/repos/search/" + encode(query));
+		return HTTPGet("https://github.com/api/v2/json/repos/search/" + query);
 	}
 
 	/**
