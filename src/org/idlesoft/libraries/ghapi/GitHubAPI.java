@@ -35,14 +35,15 @@ public class GitHubAPI {
 		return this;
 	}
 
-	public void authenticate(String login, String password)
+	public void authenticate(String login, String pass, boolean oauth)
 	{
-		api.login(login, password);
+		api.login(login, pass, oauth);
 	}
 
 	public void goStealth()
 	{
-		api.login(null, null);
+		api.login(null, null, false);
+		api.login(null, null, true);
 	}
 
 	public String getLogin()

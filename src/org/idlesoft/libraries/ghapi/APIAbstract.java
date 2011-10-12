@@ -16,7 +16,7 @@ import javax.net.ssl.SSLSession;
 
 public class APIAbstract {
 	public GitHubAPI api;
-	public String login, password;
+	public String login, password, oauth_token;
 
 	public static class Response {
 		public int statusCode;
@@ -37,15 +37,20 @@ public class APIAbstract {
 	}
 
 	/**
-	 * Sets login details
+	 * Sets login details for authentication
 	 *
 	 * @param l - String containing Github username
-	 * @param p - String containing username's Github password
+	 * @param p - String containing username's Github password OR their OAuth access token
+	 * @param oauth - Whether or not we're using OAuth
 	 */
-	public void login(String l, String p)
+	public void login(String l, String p, boolean oauth)
 	{
 		login = l;
-		password = p;
+		if (oauth) {
+		    oauth_token = p;
+		} else {
+		    password = p;
+		}
 	}
 
 	/**
@@ -59,15 +64,24 @@ public class APIAbstract {
 	{
 		Response response = new Response();
 		try {
+		    if (api.api.oauth_token != null) {
+		        if (url.contains("?")) {
+		            url = url.concat("&access_token=" + api.api.oauth_token);
+		        } else {
+		            url = url.concat("?access_token=" + api.api.oauth_token);
+		        }
+		    }
 			// Setup connection
 			HttpsURLConnection conn = (HttpsURLConnection) (new URL(url)).openConnection();
 			conn.setRequestMethod("POST");
 			conn.setDoOutput(true);
-			// Add authentication details if we know them
-			if (api.api.login != null && api.api.password != null) {
-				conn.setRequestProperty("Authorization", "Basic "
-										+ Base64Coder.encodeString(
-													(api.api.login + ":" + api.api.password)).replaceAll("\\n",""));
+			// Add HTTP Basic authentication details if we know them and we aren't using OAuth
+			if (api.api.oauth_token == null) {
+			    if (api.api.login != null && api.api.password != null) {
+    				conn.setRequestProperty("Authorization", "Basic "
+    										+ Base64Coder.encodeString(
+    													(api.api.login + ":" + api.api.password)).replaceAll("\\n",""));
+    			}
 			}
 			conn.setHostnameVerifier(new LiberalHostnameVerifier());
 			conn.connect();
@@ -89,6 +103,7 @@ public class APIAbstract {
 			try {
 				response.statusCode = conn.getResponseCode();
 			} catch (IOException e) {
+			    e.printStackTrace();
 				response.statusCode = 999;
 			}
 			response.resp = sb.toString();
@@ -100,6 +115,7 @@ public class APIAbstract {
 			in = null;
 			sb = null;
 		} catch (IOException e) {
+		    e.printStackTrace();
 			response.statusCode = 999;
 		}
 		response.url = url;
@@ -116,15 +132,25 @@ public class APIAbstract {
 	{
 		Response response = new Response();
 		try {
+		    if (api.api.oauth_token != null) {
+                if (url.contains("?")) {
+                    url = url.concat("&access_token=" + api.api.oauth_token);
+                } else {
+                    url = url.concat("?access_token=" + api.api.oauth_token);
+                }
+            }
 			// Setup connection
 			HttpsURLConnection conn = (HttpsURLConnection) (new URL(url)).openConnection();
 			conn.setRequestMethod("GET");
-			// Add authentication details if we know them
-			if (api.api.login != null && api.api.password != null) {
-				conn.setRequestProperty("Authorization", "Basic "
-										+ Base64Coder.encodeString(
-													(api.api.login + ":" + api.api.password)).replaceAll("\\n",""));
-			}
+			// Add HTTP Basic authentication details if we know them and we aren't using OAuth
+            if (api.api.oauth_token == null) {
+                if (api.api.login != null && api.api.password != null) {
+                System.out.print("basic: " + api.api.login);
+                conn.setRequestProperty("Authorization", "Basic "
+                                        + Base64Coder.encodeString(
+                                                    (api.api.login + ":" + api.api.password)).replaceAll("\\n",""));
+                }
+            }
 			conn.setHostnameVerifier(new LiberalHostnameVerifier());
 			conn.connect();
 
@@ -141,6 +167,7 @@ public class APIAbstract {
 				response.statusCode = conn.getResponseCode();
 			} catch (IOException e) {
 				response.statusCode = 999;
+				e.printStackTrace();
 			}
 			response.resp = sb.toString();
 
@@ -151,6 +178,7 @@ public class APIAbstract {
 			sb = null;
 		} catch (IOException e) {
 			response.statusCode = 999;
+			e.printStackTrace();
 		}
 		response.url = url;
 		return response;
