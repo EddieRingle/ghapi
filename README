@@ -1,3 +1,5 @@
+*** DEPRECATED ***
+
 A Java wrapper for v2 of the GitHub API.
 
 To setup GHAPI, import the GitHubAPI class and do the following:
